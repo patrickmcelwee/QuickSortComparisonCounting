@@ -21,4 +21,12 @@ public class QuickSorterTest {
 		assertArrayEquals(sortedArray, sorter.sort(unsortedArray));
 	}
 
+	@Test
+	public void leavesTwoElementSortedArrayAlone() {
+		int[] sortedArray = {1, 2};
+		int[] originalArray = {1, 2};
+		QuickSorter sorter = new QuickSorter();
+		assertArrayEquals(sortedArray, sorter.sort(originalArray));
+	}
+
 }
