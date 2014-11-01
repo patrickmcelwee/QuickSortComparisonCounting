@@ -19,17 +19,20 @@ public class QuickSorter {
 			int underTest = array[j];
 		
 			if (underTest < pivotValue) {
-				int valueToSwitch = array[i+1];
-				array[i+1] = underTest;
-				array[j] = valueToSwitch;
+				switchValues(array, i+1, j);
 				i++;
 			}
 			j++;
 		}
-		int iValue = array[i];
-		array[i] = pivotValue;
-		array[pivot] = iValue;
+		switchValues(array, i, pivot);
 
 		return sort((sort(array, left, i-1)), i+1, right);
+	}
+
+	private void switchValues(int[] array, int i, int j) {
+        int iValue = array[i];
+        int jValue = array[j];
+        array[i] = jValue;
+        array[j] = iValue;
 	}
 }
