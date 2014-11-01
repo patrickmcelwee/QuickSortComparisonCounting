@@ -5,17 +5,31 @@ public class QuickSorter {
 		
 	}
 
-	public int[] sort(int[] array) {
-		if (array.length == 1) {
+	public int[] sort(int[] array, int left, int right) {
+		if (left >= right) {
 		  return array;
 		}
-		int current = array[0];
-		int underTest = array[1];
 		
-		if (underTest < current) {
-			array[0] = underTest;
-			array[1] = current;
+		int pivot = left;
+		int i = left;
+		int j = left + 1;
+
+		int pivotValue = array[pivot];
+		while (j <= right) {
+			int underTest = array[j];
+		
+			if (underTest < pivotValue) {
+				int valueToSwitch = array[i+1];
+				array[i+1] = underTest;
+				array[j] = valueToSwitch;
+				i++;
+			}
+			j++;
 		}
-		return array;
+		int iValue = array[i];
+		array[i] = pivotValue;
+		array[pivot] = iValue;
+
+		return sort((sort(array, left, i-1)), i+1, right);
 	}
 }
