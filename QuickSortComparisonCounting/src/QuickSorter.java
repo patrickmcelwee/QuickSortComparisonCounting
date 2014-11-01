@@ -1,16 +1,25 @@
 
 public class QuickSorter {
 
+	private int comparisonCount;
+	private FirstPivotSelector pivotSelector;
+
 	public QuickSorter() {
-		
+		setComparisonCount(0);
+		pivotSelector = new FirstPivotSelector();
 	}
 
-	public int[] sort(int[] array, int left, int right) {
+	public int[] sort(int[] array) {
+		return doTheSort(array, 0, array.length - 1);
+	}
+
+	private int[] doTheSort(int[] array, int left, int right) {
 		if (left >= right) {
 		  return array;
 		}
+		setComparisonCount(getComparisonCount() + (right - left));
 		
-		int pivot = left;
+		int pivot = pivotSelector.select(array, left, right);
 		int i = left;
 		int j = left + 1;
 
@@ -26,7 +35,7 @@ public class QuickSorter {
 		}
 		switchValues(array, i, pivot);
 
-		return sort((sort(array, left, i-1)), i+1, right);
+		return doTheSort((doTheSort(array, left, i-1)), i+1, right);
 	}
 
 	private void switchValues(int[] array, int i, int j) {
@@ -34,5 +43,13 @@ public class QuickSorter {
         int jValue = array[j];
         array[i] = jValue;
         array[j] = iValue;
+	}
+
+	public int getComparisonCount() {
+		return comparisonCount;
+	}
+
+	public void setComparisonCount(int comparisonCount) {
+		this.comparisonCount = comparisonCount;
 	}
 }
