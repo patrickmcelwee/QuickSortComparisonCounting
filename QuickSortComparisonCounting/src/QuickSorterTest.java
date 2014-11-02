@@ -1,5 +1,10 @@
 import static org.junit.Assert.*;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Arrays;
+
 import org.junit.Test;
 
 
@@ -88,6 +93,81 @@ public class QuickSorterTest {
 		int[] originalArray = {3, 2, 1, 4};
 		QuickSorter sorter = new QuickSorter(new MedianPivotSelector());
 		assertArrayEquals(sortedArray, sorter.sort(originalArray));
+	}
+
+	@Test
+	public void sortsTheProblemArrayWithFirstPivot() {
+		int[] original = new int[10000];
+		try {
+			FileReader file = new FileReader("src/problem_array.txt");
+			BufferedReader input = new BufferedReader(file);
+			String temp;
+			int i = 0;
+			while ((temp = input.readLine()) != null) {
+               if (!temp.trim().equals(""))  {
+                       original[i] = new Integer(temp);  
+                       i++;
+               }
+			}
+            input.close();  
+		} catch (IOException ie) {
+			System.out.println(ie);
+		}
+		QuickSorter sorter = new QuickSorter(new FirstPivotSelector());
+		int[] sorted = original.clone();
+        Arrays.sort(sorted);
+		assertArrayEquals(sorted, sorter.sort(original));
+		assertEquals(162085, sorter.getComparisonCount());
+	}
+
+	@Test
+	public void sortsTheProblemArrayWithLastPivot() {
+		int[] original = new int[10000];
+		try {
+			FileReader file = new FileReader("src/problem_array.txt");
+			BufferedReader input = new BufferedReader(file);
+			String temp;
+			int i = 0;
+			while ((temp = input.readLine()) != null) {
+               if (!temp.trim().equals(""))  {
+                       original[i] = new Integer(temp);  
+                       i++;
+               }
+			}
+            input.close();  
+		} catch (IOException ie) {
+			System.out.println(ie);
+		}
+		QuickSorter sorter = new QuickSorter(new LastPivotSelector());
+		int[] sorted = original.clone();
+        Arrays.sort(sorted);
+		assertArrayEquals(sorted, sorter.sort(original));
+		assertEquals(164123, sorter.getComparisonCount());
+	}
+
+	@Test
+	public void sortsTheProblemArrayWithMedianPivot() {
+		int[] original = new int[10000];
+		try {
+			FileReader file = new FileReader("src/problem_array.txt");
+			BufferedReader input = new BufferedReader(file);
+			String temp;
+			int i = 0;
+			while ((temp = input.readLine()) != null) {
+               if (!temp.trim().equals(""))  {
+                       original[i] = new Integer(temp);  
+                       i++;
+               }
+			}
+            input.close();  
+		} catch (IOException ie) {
+			System.out.println(ie);
+		}
+		QuickSorter sorter = new QuickSorter(new MedianPivotSelector());
+		int[] sorted = original.clone();
+        Arrays.sort(sorted);
+		assertArrayEquals(sorted, sorter.sort(original));
+		assertEquals(138382, sorter.getComparisonCount());
 	}
 
 }
