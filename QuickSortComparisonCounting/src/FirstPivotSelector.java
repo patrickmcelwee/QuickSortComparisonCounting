@@ -1,7 +1,11 @@
 
-public class FirstPivotSelector {
+public class FirstPivotSelector implements PivotSelector {
 
-	public int select(int[] array, int left, int right) {
+	/* (non-Javadoc)
+	 * @see PivotSelector#select(int[], int, int)
+	 */
+	@Override
+	public int selectIndex(int[] array, int left, int right) {
 		return left;
 	}
 

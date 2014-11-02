@@ -2,11 +2,11 @@
 public class QuickSorter {
 
 	private int comparisonCount;
-	private FirstPivotSelector pivotSelector;
+	private PivotSelector pivotSelector;
 
-	public QuickSorter() {
+	public QuickSorter(PivotSelector pivotSelector) {
 		setComparisonCount(0);
-		pivotSelector = new FirstPivotSelector();
+		this.pivotSelector = pivotSelector;
 	}
 
 	public int[] sort(int[] array) {
@@ -19,11 +19,12 @@ public class QuickSorter {
 		}
 		setComparisonCount(getComparisonCount() + (right - left));
 		
-		int pivot = pivotSelector.select(array, left, right);
+		int pivot = pivotSelector.selectIndex(array, left, right);
 		int i = left;
 		int j = left + 1;
 
 		int pivotValue = array[pivot];
+		switchValues(array, pivot, left);
 		while (j <= right) {
 			int underTest = array[j];
 		
@@ -33,7 +34,7 @@ public class QuickSorter {
 			}
 			j++;
 		}
-		switchValues(array, i, pivot);
+		switchValues(array, i, left);
 
 		return doTheSort((doTheSort(array, left, i-1)), i+1, right);
 	}
